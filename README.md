@@ -1,0 +1,2 @@
+# TPR
+Techniki Programowania Równoleglego
