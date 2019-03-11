@@ -56,7 +56,7 @@ int main(int argc, char* argv[])
         //    printf("process 0 has ended sending %d bytes after %f seconds\n",i,time);
         //MPI_Barrier(MPI_COMM_WORLD);
         long long bytes = i*sizeof(int)*1000000;
-        if(world_rank==0)
+        if(world_rank==1)
             printf("%d %f\n",bytes ,bytes/time);
     }
     Finalize();

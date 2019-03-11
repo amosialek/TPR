@@ -141,15 +141,61 @@ void reduce()
         printf("%d\n",buffer2);
 }
 
+void own_gather(void* sendBuf, int sendCount, MPI_Datatype datatype, void* recvBuf, int recvCount, int root, MPI_Comm comm )
+{
+    MPI_Send(sendBuf,sendCount, datatype,0,0,comm);
+    int rank;
+    int size;
+    MPI_Comm_rank(comm, &rank);
+    MPI_Comm_size(comm, &size);
+    if(rank == root)
+        for(int i=0;i<size;i++)
+        {
+            //printf("%d %d\n",rank,i);
+            MPI_Recv(recvBuf+recvCount*i,recvCount,datatype,i,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE);
+        }
 
+}
+
+void own_gather_run()
+{
+    char* buffer1 = malloc(sizeof(char)*2);
+    char* buffer2 = malloc(sizeof(char)*6);
+    if(world_rank==0)
+    {
+        buffer1[0]='a';
+        buffer1[1]='a';
+    }
+    if(world_rank==1)
+    {
+        buffer1[0]='b';
+        buffer1[1]='b';
+    }
+    if(world_rank==2)
+    {
+        buffer1[0]='c';
+        buffer1[1]='c';
+    }
+    own_gather(buffer1,2,MPI_CHAR,buffer2,2,0,MPI_COMM_WORLD);
+    if(world_rank==0) {
+        for (int i = 0; i < 6; i++) {
+            printf("%c", buffer2[i]);
+        }
+
+    }
+    free(buffer1);
+    free(buffer2);
+
+}
 
 int main(int argc, char* argv[])
 {
     Init(argv);
-    //broadcast();
-    //scatter();
-    //gather();
+    broadcast();
+    scatter();
+    gather();
     reduce();
+    own_gather_run();
     MPI_Finalize();
 
     return 0;
