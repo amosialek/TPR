@@ -61,16 +61,75 @@ void broadcast()
 
 }
 
-void gather()
-{
+void gather() {
+    char *buffer = malloc(2 * sizeof(char));
+    char *buffer2 = malloc(6 * sizeof(char));
+    if (world_rank == 0) {
+        buffer[0] = 't';
+        buffer[1] = 'p';
+    }
+    if (world_rank == 1) {
+        buffer[0] = 'r';
+        buffer[1] = '2';
+    }
+    if (world_rank == 2) {
+        buffer[0] = '0';
+        buffer[1] = '1';
+    }
 
+
+
+    MPI_Gather(buffer,2,MPI_CHAR,buffer2,2,MPI_CHAR,0,MPI_COMM_WORLD);
+    if(world_rank == 0) {
+
+        for (int i = 0; i < 6; i++)
+            printf("%c", buffer2[i]);
+        printf("\n");
+    }
+
+    free(buffer);
+    free(buffer2);
 
 }
 
 void scatter()
 {
+    char* buffer = malloc(7*sizeof(char));
+    char* buffer2 = malloc(7*sizeof(char));
+    buffer[0]='t';
+    buffer[1]='p';
+    buffer[2]='r';
+    buffer[3]='2';
+    buffer[4]='0';
+    buffer[5]='1';
+    buffer[6]='9';
 
 
+    MPI_Scatter(buffer,2,MPI_CHAR,buffer2,2,MPI_CHAR,0,MPI_COMM_WORLD);
+    if(world_rank == 0) {
+
+        for (int i = 0; i < 2; i++)
+            printf("%c", buffer2[i]);
+        printf("\n");
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
+    if(world_rank == 1) {
+
+        for (int i = 0; i < 2; i++)
+            printf("%c", buffer2[i]);
+        printf("\n");
+    }
+    MPI_Barrier(MPI_COMM_WORLD);
+
+    if(world_rank == 2) {
+
+        for (int i = 0; i < 2; i++)
+            printf("%c", buffer2[i]);
+        printf("\n");
+    }
+
+    free(buffer);
+    free(buffer2);
 }
 
 void reduce()
@@ -83,7 +142,9 @@ void reduce()
 int main(int argc, char* argv[])
 {
     Init(argv);
-broadcast();
+    //broadcast();
+    //scatter();
+    gather();
     MPI_Finalize();
 
     return 0;
