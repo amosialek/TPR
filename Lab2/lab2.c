@@ -134,9 +134,13 @@ void scatter()
 
 void reduce()
 {
-
-
+    int buffer1 = world_rank;
+    int buffer2 = 0;
+    MPI_Reduce(&buffer1,&buffer2, 1,MPI_INT,MPI_SUM,0,MPI_COMM_WORLD);
+    if(world_rank==0)
+        printf("%d\n",buffer2);
 }
+
 
 
 int main(int argc, char* argv[])
@@ -144,7 +148,8 @@ int main(int argc, char* argv[])
     Init(argv);
     //broadcast();
     //scatter();
-    gather();
+    //gather();
+    reduce();
     MPI_Finalize();
 
     return 0;
