@@ -49,14 +49,15 @@ int main(int argc, char* argv[])
     Init(argv);
     //MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &provided);
     double time;
-    for(long long i=1;i<100;i+=1)
+    for(int i=1;i<100;i+=1)
     {
         time = mpi_send_test(i*1000000);
         //if(world_rank==0)
         //    printf("process 0 has ended sending %d bytes after %f seconds\n",i,time);
         //MPI_Barrier(MPI_COMM_WORLD);
+        long long bytes = i*sizeof(int)*1000000;
         if(world_rank==0)
-            printf("%d %f\n",i,sizeof(int)*i/time);
+            printf("%d %f\n",bytes ,bytes/time);
     }
     Finalize();
 }
