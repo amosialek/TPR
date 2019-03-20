@@ -1,0 +1,9 @@
+#!/bin/bash
+#SBATCH --ntasks=12
+#SBATCH --nodes=1
+#SBATCH --time=00:01:00
+## przejscie do katalogu z ktorego wywolany zostal sbatch
+cd $SLURM_SUBMIT_DIR
+module add plgrid/tools/openmpi
+mpicc -o helloworldc pi.c -std=gnu99
+mpiexec -np 3 ./helloworldc 1000000 
