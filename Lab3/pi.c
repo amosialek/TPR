@@ -25,22 +25,35 @@ void Finalize()
     MPI_Finalize();
 }
 
+int get_problem_size(int argc, char*argv[])
+{
+    //printf("%d\n",argc);
+    //printf("tu\n");
+    if (argc==2) return atoi(argv[1]);
+    //printf("%d\n",atoi(argv[1]));
+    if (argc==3) return atoi(argv[1])/world_size;
+    //printf("tu\n");
+    return 1;
+}
+
 int main(int argc, char* argv[])
 {
-  for(int i=0;i<argc;i++)
-  printf("%s\n",argv[i]);
-  printf("%d\n",atoi(argv[1]));
-
-    int kolo=0;
-    int kwadrat=atoi(argv[1]);
-    //printf("%d\n",kwadrat);
-    double x,y;
     Init(argv);
-    //MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &provided);\
+  int problem_size = get_problem_size(argc, argv);
+  //for(int i=0;i<argc;i++)
+  //printf("%s\n",argv[i]);
+  //printf("%d\n",atoi(argv[1]));
+//printf("tam\n");
+    int kolo=0;
+    int kwadrat=problem_size;
+    printf("%d\n",kwadrat);
+    double x,y;
+    //MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &provided);
     srand(time(NULL));
     //printf("aaaaa\n");
     MPI_Barrier(MPI_COMM_WORLD);
     //printf("asdf\n");
+
     double time = MPI_Wtime();
     for(int i=1;i<kwadrat;i++)
     {
@@ -49,12 +62,12 @@ int main(int argc, char* argv[])
         while(x>1)
         {
           //printf("asdfasdf\n");
-          x=rand()/2000000000.0;
+          x=1.0*rand()/RAND_MAX;
         }
         while(y>1)
         {
           //printf("asdfasdf2\n");
-          y=rand()/2000000000.0;
+          y=1.0*rand()/RAND_MAX;
         }
         //time = mpi_send_test(i*1000000);
 
