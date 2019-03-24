@@ -1,33 +1,33 @@
 #!/bin/bash
 #SBATCH --ntasks=12
 #SBATCH --nodes=1
-#SBATCH --time=00:20:00
+#SBATCH --time=00:59:00
 ## przejscie do katalogu z ktorego wywolany zostal sbatch
 cd $SLURM_SUBMIT_DIR
 module add plgrid/tools/openmpi
 mpicc -o helloworldc pi.c -std=gnu99
-mpiexec -np 1 ./helloworldc 1000000 
-mpiexec -np 2 ./helloworldc 1000000 
-mpiexec -np 3 ./helloworldc 1000000 
-mpiexec -np 4 ./helloworldc 1000000 
-mpiexec -np 5 ./helloworldc 1000000 
-mpiexec -np 6 ./helloworldc 1000000 
-mpiexec -np 7 ./helloworldc 1000000 
-mpiexec -np 8 ./helloworldc 1000000 
-mpiexec -np 9 ./helloworldc 1000000 
-mpiexec -np 10 ./helloworldc 1000000 
-mpiexec -np 11 ./helloworldc 1000000 
-mpiexec -np 12 ./helloworldc 1000000
+mpiexec -np 1 ./helloworldc 1000000000 
+mpiexec -np 2 ./helloworldc 1000000000 
+mpiexec -np 3 ./helloworldc 1000000000 
+mpiexec -np 4 ./helloworldc 1000000000 
+mpiexec -np 5 ./helloworldc 1000000000 
+mpiexec -np 6 ./helloworldc 1000000000 
+mpiexec -np 7 ./helloworldc 1000000000 
+mpiexec -np 8 ./helloworldc 1000000000 
+mpiexec -np 9 ./helloworldc 1000000000 
+mpiexec -np 10 ./helloworldc 1000000000 
+mpiexec -np 11 ./helloworldc 1000000000 
+mpiexec -np 12 ./helloworldc 1000000000
 
-mpiexec -np 1 ./helloworldc 1000000 y 
-mpiexec -np 2 ./helloworldc 1000000 y
-mpiexec -np 3 ./helloworldc 1000000 y
-mpiexec -np 4 ./helloworldc 1000000 y
-mpiexec -np 5 ./helloworldc 1000000 y
-mpiexec -np 6 ./helloworldc 1000000 y
-mpiexec -np 7 ./helloworldc 1000000 y
-mpiexec -np 8 ./helloworldc 1000000 y
-mpiexec -np 9 ./helloworldc 1000000 y
-mpiexec -np 10 ./helloworldc 1000000 y
-mpiexec -np 11 ./helloworldc 1000000 y
-mpiexec -np 12 ./helloworldc 1000000 y
+mpiexec -np 1 ./helloworldc 1000000000 y 
+mpiexec -np 2 ./helloworldc 1000000000 y
+mpiexec -np 3 ./helloworldc 1000000000 y
+mpiexec -np 4 ./helloworldc 1000000000 y
+mpiexec -np 5 ./helloworldc 1000000000 y
+mpiexec -np 6 ./helloworldc 1000000000 y
+mpiexec -np 7 ./helloworldc 1000000000 y
+mpiexec -np 8 ./helloworldc 1000000000 y
+mpiexec -np 9 ./helloworldc 1000000000 y
+mpiexec -np 10 ./helloworldc 1000000000 y
+mpiexec -np 11 ./helloworldc 1000000000 y
+mpiexec -np 12 ./helloworldc 1000000000 y
